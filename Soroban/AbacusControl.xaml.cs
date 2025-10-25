@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -22,28 +25,21 @@ namespace Soroban
     /// </summary>
     public partial class AbacusControl : UserControl
     {
-        List<Ellipse> ones1;
-        List<Ellipse> tens1;
-        List<Ellipse> hundreds1;
-        List<Ellipse> thousands1;
-        List<Ellipse> tenThousands1;
-        List<Ellipse> hundredThousands1;
-        List<Ellipse> millions1;
-        Ellipse[,] numbers = new Ellipse[7,5];
-        Double[,,] origanalValues = new double[7,5,2]; 
+        Ellipse[,] numbers = new Ellipse[7, 5];
+        Double[,,] origanalValues = new double[7, 5, 2];
         int counter = 0;
 
 
         public AbacusControl()
         {
             InitializeComponent();
-            Ellipse[] ones = {one, two, three, four, five};
-            Ellipse[] tens = {ten, twenty, thirty, fourty, fifty};
-            Ellipse[] hundreds = { hundred, twohundred, threehundred, fourhundred, fivehundred};
-            Ellipse[] thousands = {thousend, twothousend, threethousend, fourthousend, fivethousend};
-            Ellipse[] tenThousands = {tenthousend, twentythousend, thirtythousend, fourtythousend, fiftythousend};
-            Ellipse[] hundredThousands = {hundredthousand, twohundredthousand, threehundredthousand, fourhundredthousand, fivehundredthousend};
-            Ellipse[] millions = {million1, twomillion1, threemillion, fourmillion, fivemillion};
+            Ellipse[] ones = { one, two, three, four, five };
+            Ellipse[] tens = { ten, twenty, thirty, fourty, fifty };
+            Ellipse[] hundreds = { hundred, twohundred, threehundred, fourhundred, fivehundred };
+            Ellipse[] thousands = { thousend, twothousend, threethousend, fourthousend, fivethousend };
+            Ellipse[] tenThousands = { tenthousend, twentythousend, thirtythousend, fourtythousend, fiftythousend };
+            Ellipse[] hundredThousands = { hundredthousand, twohundredthousand, threehundredthousand, fourhundredthousand, fivehundredthousend };
+            Ellipse[] millions = { million1, twomillion1, threemillion, fourmillion, fivemillion };
 
             addNum(millions);
             addNum(hundredThousands);
@@ -53,65 +49,58 @@ namespace Soroban
             addNum(tens);
             addNum(ones);
 
-            for(int i = 0; i <=6; i++)
+            for (int i = 0; i <= 6; i++)
             {
-                for(int j = 0; j <=4; j++)
+                for (int j = 0; j <= 4; j++)
                 {
                     origanalValues[i, j, 0] = numbers[i, j].RenderTransform.Value.OffsetX;
                     origanalValues[i, j, 1] = numbers[i, j].RenderTransform.Value.OffsetY;
                 }
             }
-            
-            
+
+
         }
 
-        public void circleDown(int i, int j)
+        public void beadUp(int i, int j)
         {
-            TranslateTransform move;
+            if (numbers[i, j].RenderTransform == null || !(numbers[i, j].RenderTransform is TranslateTransform))
+                numbers[i, j].RenderTransform = new TranslateTransform();
+
+            var transform = (TranslateTransform)numbers[i, j].RenderTransform;
             if (j == 4)
-            {
-                 move = new TranslateTransform(0, 100);
-            }
-            else
-            {
-                 move = new TranslateTransform(0, 0);
-            }
-            
-            numbers[i, j].RenderTransform = move;
+                transform.Y = 0;
+            else transform.Y = -100;
         }
 
-        public void circleUp(int i, int j)
+        public void beadDown(int i, int j)
         {
+            if (numbers[i, j].RenderTransform == null || !(numbers[i, j].RenderTransform is TranslateTransform))
+                numbers[i, j].RenderTransform = new TranslateTransform();
 
-            TranslateTransform move;
+            var transform = (TranslateTransform)numbers[i, j].RenderTransform;
             if (j == 4)
-            {
-                move = new TranslateTransform(0, 0);
-            }
-            else
-            {
-                move = new TranslateTransform(0, -100);
-            }
+                transform.Y = 100;
+            else transform.Y = 0;
 
-            numbers[i, j].RenderTransform = move;
         }
 
-        public async Task moveCircle(int[,] arr)
+
+        public async Task moveBead(int[,] arr)
         {
-            for(int i = 0; i < arr.Length / 2; i++)
+            for (int i = 0; i < arr.Length / 2; i++)
             {
-                
+
                 if (arr[i, 0] != 0)
                 {
                     await Task.Delay(500);
-                    circleDown(i, 4);
+                    beadDown(i, 4);
                 }
                 if (arr[i, 1] != 0)
                 {
                     for (int j = 0; j < arr[i, 1]; j++)
                     {
                         await Task.Delay(500);
-                        circleUp(i, j);
+                        beadUp(i, j);
                     }
                 }
             }
@@ -119,25 +108,25 @@ namespace Soroban
 
         public void clear()
         {
-            for(int i = 6; i>= 0; i--)
+            for (int i = 6; i >= 0; i--)
             {
-                for(int j = 4; j>= 0; j--)
+                for (int j = 4; j >= 0; j--)
                 {
-                    TranslateTransform resetTranslate= new TranslateTransform(origanalValues[i, j, 0], origanalValues[i, j, 0]);
+                    TranslateTransform resetTranslate = new TranslateTransform(origanalValues[i, j, 0], origanalValues[i, j, 0]);
                     numbers[i, j].RenderTransform = resetTranslate;
                 }
             }
-           //TranslateTransform resetTranslate = new TranslateTransform(origanalValues[i, j, 0], origanalValues[i, j, 0]);
-           //numbers[i, j].RenderTransform = resetTranslate;
+            //TranslateTransform resetTranslate = new TranslateTransform(origanalValues[i, j, 0], origanalValues[i, j, 0]);
+            //numbers[i, j].RenderTransform = resetTranslate;
         }
 
         public int[,] add(int[,] arr1, int[,] arr2)
         {
             int[,] toplam = new int[7, 2];
 
-            for(int i = 0; i <= 6; i++)
+            for (int i = 0; i <= 6; i++)
             {
-                for(int j = 0; j <=1; j++)
+                for (int j = 0; j <= 1; j++)
                 {
                     toplam[i, j] = arr1[i, j] + arr2[i, j];
                     Console.WriteLine($"arr1{i}:{j}: {arr1[i, j]}");
@@ -172,7 +161,7 @@ namespace Soroban
                 numbers[counter, j] = arr[j];
             }
             counter++;
-            
+
         }
     }
 }

@@ -52,6 +52,7 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BeadColumn.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -63,6 +64,7 @@
     <Compile Include="AbacusControl.xaml.cs">
       <DependentUpon>AbacusControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SorobanNumber.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
