@@ -20,9 +20,6 @@ using System.Windows.Shapes;
 
 namespace Soroban
 {
-    /// <summary>
-    /// UserControl2.xaml etkileşim mantığı
-    /// </summary>
     public partial class AbacusControl : UserControl
     {
         Ellipse[,] numbers = new Ellipse[7, 5];
@@ -85,73 +82,7 @@ namespace Soroban
         }
 
 
-        public async Task moveBead(int[,] arr)
-        {
-            for (int i = 0; i < arr.Length / 2; i++)
-            {
-
-                if (arr[i, 0] != 0)
-                {
-                    await Task.Delay(500);
-                    beadDown(i, 4);
-                }
-                if (arr[i, 1] != 0)
-                {
-                    for (int j = 0; j < arr[i, 1]; j++)
-                    {
-                        await Task.Delay(500);
-                        beadUp(i, j);
-                    }
-                }
-            }
-        }
-
-        public void clear()
-        {
-            for (int i = 6; i >= 0; i--)
-            {
-                for (int j = 4; j >= 0; j--)
-                {
-                    TranslateTransform resetTranslate = new TranslateTransform(origanalValues[i, j, 0], origanalValues[i, j, 0]);
-                    numbers[i, j].RenderTransform = resetTranslate;
-                }
-            }
-            //TranslateTransform resetTranslate = new TranslateTransform(origanalValues[i, j, 0], origanalValues[i, j, 0]);
-            //numbers[i, j].RenderTransform = resetTranslate;
-        }
-
-        public int[,] add(int[,] arr1, int[,] arr2)
-        {
-            int[,] toplam = new int[7, 2];
-
-            for (int i = 0; i <= 6; i++)
-            {
-                for (int j = 0; j <= 1; j++)
-                {
-                    toplam[i, j] = arr1[i, j] + arr2[i, j];
-                    Console.WriteLine($"arr1{i}:{j}: {arr1[i, j]}");
-                    Console.WriteLine($"arr2{i}:{j}: {arr2[i, j]}");
-                    Console.WriteLine($"toplam{i}:{j}: {toplam[i, j]}");
-                }
-            }
-
-            //for (int i = 6; i >= 0; i--)
-            //{
-            //    if(toplam[i, 0] >= 5)
-            //    {
-            //        toplam[i, 0] %= 5;
-            //        toplam[i, 1]++;
-            //    }
-            //
-            //    if (toplam[i, 1] > 1)
-            //    {
-            //        toplam[i, 1] = 0;
-            //        toplam[i + 1, 0]++;
-            //    }
-            //
-            //}
-            return toplam;
-        }
+        
 
 
         public void addNum(Ellipse[] arr)
