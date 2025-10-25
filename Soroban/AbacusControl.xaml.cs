@@ -20,7 +20,7 @@ namespace Soroban
     /// <summary>
     /// UserControl2.xaml etkileşim mantığı
     /// </summary>
-    public partial class UserControl2 : UserControl
+    public partial class AbacusControl : UserControl
     {
         List<Ellipse> ones1;
         List<Ellipse> tens1;
@@ -34,7 +34,7 @@ namespace Soroban
         int counter = 0;
 
 
-        public UserControl2()
+        public AbacusControl()
         {
             InitializeComponent();
             Ellipse[] ones = {one, two, three, four, five};

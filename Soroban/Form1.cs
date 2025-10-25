@@ -74,11 +74,11 @@ namespace Soroban
          
         private async void toplaBtn_Click(object sender, EventArgs e)
         {
-            userControl21.clear();
+            abacusControl.clear();
             number1.Clear();
             number2.Clear();
             number();
-            userControl21.moveCircle(number1arr);
+            abacusControl.moveCircle(number1arr);
             await Task.Delay(10000);
             toplam();
         }
@@ -101,13 +101,13 @@ namespace Soroban
                     if (toplamarr[i, 0] == 1)
                     {
                         await Task.Delay(500);
-                        userControl21.circleDown(i, 4);
+                        abacusControl.circleDown(i, 4);
                     }
                     if (toplamarr[i, 0] > 1)
                     {
                         toplamarr[i, 0] = 0;
                         await Task.Delay(500);
-                        userControl21.circleUp(i, 4);
+                        abacusControl.circleUp(i, 4);
                         rec(toplamarr, i);
                     }
 
@@ -117,26 +117,26 @@ namespace Soroban
                         {
                             toplamarr[i, 0] += 1;
                             await Task.Delay(500);
-                            userControl21.circleDown(i, 4);
+                            abacusControl.circleDown(i, 4);
                             int remainder = toplamarr[i, 1] %= 5;
                             for (int j = 3; j >= remainder; j--)
                             {
                                 await Task.Delay(500);
-                                userControl21.circleDown(i, j);
+                                abacusControl.circleDown(i, j);
                             }
                         }
                         else
                         {
                             toplamarr[i, 0] = 0;
                             await Task.Delay(500);
-                            userControl21.circleUp(i, 4);
+                            abacusControl.circleUp(i, 4);
                             toplamarr[i, 1] %= 5;
                             for (int j = 0; j <= 3; j++)
                             {
                                 if(j <= toplamarr[i, 1] - 1)
                                 {
                                     await Task.Delay(500);
-                                    userControl21.circleUp(i, j);
+                                    abacusControl.circleUp(i, j);
                                 }
                             }
                             for (int j = 3; j >= 0; j--)
@@ -144,7 +144,7 @@ namespace Soroban
                                 if (j > toplamarr[i, 1] - 1)
                                 {
                                     await Task.Delay(500);
-                                    userControl21.circleDown(i, j);
+                                    abacusControl.circleDown(i, j);
                                 }
                             }
                             rec(toplamarr, i);
@@ -157,7 +157,7 @@ namespace Soroban
                             if (l <= toplamarr[i, 1] - 1)
                             {
                                 await Task.Delay(500);
-                                userControl21.circleUp(i, l);
+                                abacusControl.circleUp(i, l);
                             }
                         }
 
@@ -166,7 +166,7 @@ namespace Soroban
                             if (l > toplamarr[i, 1] - 1)
                             {
                                 await Task.Delay(500);
-                                userControl21.circleDown(i, l);
+                                abacusControl.circleDown(i, l);
                             }
                         }
 
@@ -189,7 +189,7 @@ namespace Soroban
                     if (k < toplamarr[i - 1, 1])
                     {
                         await Task.Delay(500);
-                        userControl21.circleUp(i - 1, k);
+                        abacusControl.circleUp(i - 1, k);
                     }
 
                 }
@@ -198,7 +198,7 @@ namespace Soroban
                     if (k >= toplamarr[i - 1, 1])
                     {
                         await Task.Delay(500);
-                        userControl21.circleDown(i - 1, k);
+                        abacusControl.circleDown(i - 1, k);
                     }
                 }
 
@@ -210,17 +210,17 @@ namespace Soroban
                 {
                     arr[i - 1, 0] += 1;
                     await Task.Delay(500);
-                    userControl21.circleDown(i - 1, 4);
+                    abacusControl.circleDown(i - 1, 4);
                     arr[i - 1, 1] = 0;
                     for (int j = 3; j >= 0; j--)
                     {
                         await Task.Delay(500);
-                        userControl21.circleDown(i, j);
+                        abacusControl.circleDown(i, j);
                     }
                     for (int j = 3; j >= 0; j--)
                     {
                         await Task.Delay(500);
-                        userControl21.circleDown(i - 1, j);
+                        abacusControl.circleDown(i - 1, j);
                     }
 
                 }
@@ -228,17 +228,17 @@ namespace Soroban
                 {
                     arr[i - 1, 0] = 0;
                     await Task.Delay(500);
-                    userControl21.circleUp(i - 1, 4);
+                    abacusControl.circleUp(i - 1, 4);
                     arr[i - 1, 1] = 0;
                     for (int j = 3; j >= 0; j--)
                     {
                         await Task.Delay(500);
-                        userControl21.circleDown(i, j);
+                        abacusControl.circleDown(i, j);
                     }
                     for (int j = 3; j >= 0; j--)
                     {
                         await Task.Delay(500);
-                        userControl21.circleDown(i - 1, j);
+                        abacusControl.circleDown(i - 1, j);
                     }
                     rec(arr, i - 1);
                 }

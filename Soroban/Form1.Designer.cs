@@ -1,4 +1,5 @@
-﻿namespace Soroban
+﻿using Soroban;
+namespace Soroban
 {
     partial class Form1
     {
@@ -6,6 +7,7 @@
         ///Gerekli tasarımcı değişkeni.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
+        private Soroban.AbacusControl abacusControl;
 
         /// <summary>
         ///Kullanılan tüm kaynakları temizleyin.
@@ -34,7 +36,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.toplaBtn = new System.Windows.Forms.Button();
             this.elementHost1 = new System.Windows.Forms.Integration.ElementHost();
-            this.userControl21 = new Soroban.UserControl2();
+            this.abacusControl = new Soroban.AbacusControl();
+
             this.SuspendLayout();
             // 
             // textBox1
@@ -91,7 +94,7 @@
             this.elementHost1.Size = new System.Drawing.Size(491, 408);
             this.elementHost1.TabIndex = 10;
             this.elementHost1.Text = "elementHost1";
-            this.elementHost1.Child = this.userControl21;
+            this.elementHost1.Child = this.abacusControl;
             // 
             // Form1
             // 
@@ -120,7 +123,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button toplaBtn;
         private System.Windows.Forms.Integration.ElementHost elementHost1;
-        private UserControl2 userControl21;
         private System.Windows.Forms.Button showNumber;
     }
 }
