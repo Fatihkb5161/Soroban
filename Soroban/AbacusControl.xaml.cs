@@ -25,6 +25,7 @@ namespace Soroban
         Ellipse[,] numbers = new Ellipse[7, 5];
         Double[,,] origanalValues = new double[7, 5, 2];
         int counter = 0;
+        int delayTime = 300; /// ms
 
 
         public AbacusControl()
@@ -58,7 +59,7 @@ namespace Soroban
 
         }
 
-        public void beadUp(int i, int j)
+        public async Task  beadUp(int i, int j)
         {
             if (numbers[i, j].RenderTransform == null || !(numbers[i, j].RenderTransform is TranslateTransform))
                 numbers[i, j].RenderTransform = new TranslateTransform();
@@ -67,9 +68,11 @@ namespace Soroban
             if (j == 4)
                 transform.Y = 0;
             else transform.Y = -100;
+
+            await Task.Delay(delayTime);
         }
 
-        public void beadDown(int i, int j)
+        public async Task beadDown(int i, int j)
         {
             if (numbers[i, j].RenderTransform == null || !(numbers[i, j].RenderTransform is TranslateTransform))
                 numbers[i, j].RenderTransform = new TranslateTransform();
@@ -78,6 +81,8 @@ namespace Soroban
             if (j == 4)
                 transform.Y = 100;
             else transform.Y = 0;
+
+            await Task.Delay(delayTime);
 
         }
 

@@ -106,6 +106,7 @@ namespace Soraban
             this.subsBtn.TabIndex = 11;
             this.subsBtn.Text = "-";
             this.subsBtn.UseVisualStyleBackColor = true;
+            this.subsBtn.Click += new System.EventHandler(this.subsBtn_Click);
             // 
             // mulBtn
             // 
